@@ -399,7 +399,7 @@ The real cause is that block and loop share amplitude, contact height and table 
 | **Players switching ends** | Not handled. "Left" means whoever is on the left, not a person. Fine within a game, wrong across a match. |
 | **`test_5` excluded** | Its pose stream carries no contact signal. Cause undiagnosed. |
 | **External validation is a single clip** | One 48 s clip from a different venue with unseen players confirms transfer (F1 0.971 detection, 8/8 rallies, macro-F1 0.830) but is not a broad generalisation estimate — see External validation above. |
-| **Licence** | CC BY-NC-SA 4.0, non-commercial, and share-alike is viral. |
+| **Data licence** | Training data (OpenTTGames, Extended OpenTT Games) is CC BY-NC-SA 4.0, non-commercial, share-alike. The code in this repo is MIT-licensed, but anything trained on or derived from that data inherits its non-commercial restriction. |
 
 ## Next: Phase 2.5, 3D pose
 
@@ -466,8 +466,16 @@ Steps:
 
 *How far can you get from body pose alone?*
 
-**Far enough** to find shots at F1 0.881, attribute them at 0.994, structure them into rallies at 0.769, and reliably classify the two stroke families where technique coaching matters most, with serve at 0.980 and attack at 0.822.
+**Far enough** to find shots at F1 0.879, attribute them at 0.994, structure them into rallies at 0.769, and reliably classify the two stroke families where technique coaching matters most, with serve at 0.976 and attack at 0.817.
 
 **Not far enough** to distinguish a block from a push, because that distinction is not in the body. It is in the racket and the ball.
 
 That boundary is the project's most useful output. It is measured rather than guessed, and it says exactly what the eventual coach can and cannot be trusted to say.
+
+---
+
+# License
+
+The code in this repository is licensed under the [MIT License](LICENSE).
+
+The training data (OpenTTGames, Extended OpenTT Games) is third-party and licensed separately under CC BY-NC-SA 4.0 (non-commercial, share-alike). Model weights trained on that data inherit its non-commercial restriction; the pipeline code itself does not.
