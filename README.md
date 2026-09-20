@@ -4,6 +4,8 @@
 
 Status: Phase 1 and Phase 2 complete and validated. Phase 2.5 (3D pose) is next. Last updated 7 September 2026.
 
+![KINESIS applied to a real match: extracted skeletons overlaid on the sideline video, with detected match state ("Between rallies") and classified stroke family ("Control") shown live.](live_demo.png)
+
 ---
 
 # 1. What this project is about
@@ -214,6 +216,8 @@ Benchmarked against several YOLO-pose configurations. RTMPose-l running top-down
 # 4. What has been built
 
 ## Pipeline
+
+![The nine-stage analysis pipeline: activity gate, pose extraction, resample to 120fps, and canonicalise feed contact detection + side attribution, stroke classification, kinematics, and rally grouping, producing shots.json plus an annotated video.](pipeline_diagram.png)
 
 ```
 video.mp4
