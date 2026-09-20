@@ -1,8 +1,10 @@
-# PongAI
+# PongAI Coach
 
-**A table-tennis analysis system that detects rallies and shots from body movement alone, built toward an AI coach that gives technique feedback.**
+**The web application built on KINESIS**, a research framework that detects rallies and shots from body movement alone, built toward an AI coach that gives technique feedback.
 
 Status: Phase 1 and Phase 2 complete and validated. Phase 2.5 (3D pose) is next. Last updated 7 September 2026.
+
+> **Naming note:** KINESIS is the underlying research framework and pipeline (detection, classification, kinematics, rally structure) described in the accompanying paper. PongAI Coach is the public web application built on top of it. This repository contains both.
 
 ![KINESIS applied to a real match: extracted skeletons overlaid on the sideline video, with detected match state ("Between rallies") and classified stroke family ("Control") shown live.](live_demo.png)
 
