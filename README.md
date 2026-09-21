@@ -1,8 +1,12 @@
-# PongAI
+# KINESIS: Continuous Table Tennis Biomechanics Analysis Using Temporal Body Pose
 
-**A table-tennis analysis system that detects rallies and shots from body movement alone, built toward an AI coach that gives technique feedback.**
+**PongAI Coach** is the web application built on KINESIS, a research framework that detects rallies and shots from body movement alone, built toward an AI coach that gives technique feedback.
 
 Status: Phase 1 and Phase 2 complete and validated. Phase 2.5 (3D pose) is next. Last updated 7 September 2026.
+
+> **Naming note:** KINESIS is the underlying research framework and pipeline (detection, classification, kinematics, rally structure) described in the accompanying paper. PongAI Coach is the public web application built on top of it. This repository contains both.
+
+![KINESIS applied to a real match: extracted skeletons overlaid on the sideline video, with detected match state ("Between rallies") and classified stroke family ("Control") shown live.](live_demo.png)
 
 ---
 
@@ -215,6 +219,8 @@ Benchmarked against several YOLO-pose configurations. RTMPose-l running top-down
 
 ## Pipeline
 
+![The nine-stage analysis pipeline: activity gate, pose extraction, resample to 120fps, and canonicalise feed contact detection + side attribution, stroke classification, kinematics, and rally grouping, producing shots.json plus an annotated video.](pipeline_diagram.png)
+
 ```
 video.mp4
   1  activity gate      both players present and moving, sequential decode
@@ -314,22 +320,26 @@ All from **7-fold cross-validation split by video**, so no stroke from a rally a
 
 | | result |
 |---|---|
-| Contact detection | **F1 0.881** at plus or minus 8 frames (67 ms) |
+| Contact detection | **F1 0.879** at plus or minus 8 frames (67 ms) |
 | Side attribution | **0.994** |
-| Classification | **macro-F1 0.792** |
-| End-to-end | **macro-F1 0.698** |
+| Classification, ground-truth windows | **macro-F1 0.792** |
+| Classification, detected windows | macro-F1 0.757 |
+| End-to-end (detect + classify) | **macro-F1 0.693** |
 | Rally boundaries | **F1 0.769**, at the detection ceiling |
+
+Three classification numbers are not interchangeable: 0.792 is the classifier given ground-truth stroke locations; 0.757 is the same classifier on windows cut around detected contacts, counting only matched pairs; 0.693 is true end-to-end, requiring both a matched contact and the right class. "End-to-end" always means 0.693.
 
 ### Per class
 
-| class | F1 | held-out precision | coachable |
-|---|---|---|---|
-| serve | **0.980** | 0.974 | yes |
-| attack | **0.822** | 0.857 | yes |
-| control | 0.773 | 0.804 | no, suppressed |
-| defence | 0.471 | 0.556 | no, suppressed |
+| class | precision | recall | F1 | coachable |
+|---|---|---|---|---|
+| serve | 0.989 | 0.964 | **0.976** | yes |
+| attack | 0.857 | 0.782 | **0.817** | yes |
+| control | 0.773 | 0.857 | 0.813 | no, suppressed |
+| defence | 0.523 | 0.602 | 0.560 | no, suppressed |
+| macro | 0.786 | 0.801 | 0.792 | — |
 
-**59.7% of shots are coachable at 89.4% precision**, and they are serve and attack, where technique coaching matters most.
+Serve and attack account for **64.7% of all shots**. Predictions in these two classes clear their calibrated thresholds (0.25, 0.50) at a combined **89.7% precision**. Control and defence carry a threshold that can never be met, so both always abstain — but their underlying precision (0.773 vs. 0.523) is not equivalent, and the two are reported separately rather than conflated.
 
 ### Progression
 
@@ -338,7 +348,7 @@ All from **7-fold cross-validation split by video**, so no stroke from a rally a
 | v1 LSTM, invalid because of a shuffled split | 0.818, not comparable |
 | Stage 4, LightGBM on 44 scalars | 0.693 |
 | Stage 5, dilated TCN, multi-task | **0.792** |
-| Stage 7, end-to-end cascade | 0.698 |
+| Stage 7, end-to-end cascade | 0.693 |
 
 Fold variance also fell from plus or minus 0.106 to plus or minus 0.077, meaning the model generalises across players better rather than merely scoring higher.
 
@@ -351,6 +361,14 @@ Batch across four videos: mean absolute shot-count error **3.2%**, all within 6%
 **Venue independence.** `test_7` is a different hall with a green wall and red floor, and gave 2.0% error against 3.7% for the main venue.
 
 **Negative control.** `test_5` is the only video the models never saw, and its pose stream carries no contact signal. It found 1 shot of 27. The pipeline stays quiet on bad input rather than inventing contacts.
+
+### External validation, unseen footage
+
+All numbers above come from cross-validation on the 12 training videos. The pipeline was also evaluated once on a 48 s clip from a **different venue with players absent from training**, manually annotated at 0.01 s resolution.
+
+Using the deployed models (trained on 11 of the 12 videos), it detected 35 shots against 35 annotated, of which **34 matched within ±67 ms (F1 = 0.971)**, recovered all 8 rallies, attributed the striking player correctly throughout, and reached **macro-F1 = 0.830** on matched-shot classification.
+
+That detection F1 exceeds the cross-validated 0.879 headline, but a single clean clip is an easier setting than the 12-video aggregate, which includes individual videos as low as F1 = 0.500 and 0.439. **This is one favorable external sample, not a revised estimate** — at n = 34 matched shots, a single misclassification moves macro-F1 by between 0.02 and 0.09 depending on the class.
 
 ## Findings
 
@@ -382,8 +400,8 @@ The real cause is that block and loop share amplitude, contact height and table 
 | **120 fps for velocity metrics** | 30 fps works for detection, rallies and stroke type; swing-speed metrics are withheld. |
 | **Players switching ends** | Not handled. "Left" means whoever is on the left, not a person. Fine within a game, wrong across a match. |
 | **`test_5` excluded** | Its pose stream carries no contact signal. Cause undiagnosed. |
-| **Never run on unseen footage** | All 12 videos were in the final models' training set. The cross-validation numbers are honest estimates, but the pipeline has not faced a video the models did not learn from. |
-| **Licence** | CC BY-NC-SA 4.0, non-commercial, and share-alike is viral. |
+| **External validation is a single clip** | One 48 s clip from a different venue with unseen players confirms transfer (F1 0.971 detection, 8/8 rallies, macro-F1 0.830) but is not a broad generalisation estimate — see External validation above. |
+| **Data licence** | Training data (OpenTTGames, Extended OpenTT Games) is CC BY-NC-SA 4.0, non-commercial, share-alike. The code in this repo is MIT-licensed, but anything trained on or derived from that data inherits its non-commercial restriction. |
 
 ## Next: Phase 2.5, 3D pose
 
@@ -450,8 +468,16 @@ Steps:
 
 *How far can you get from body pose alone?*
 
-**Far enough** to find shots at F1 0.881, attribute them at 0.994, structure them into rallies at 0.769, and reliably classify the two stroke families where technique coaching matters most, with serve at 0.980 and attack at 0.822.
+**Far enough** to find shots at F1 0.879, attribute them at 0.994, structure them into rallies at 0.769, and reliably classify the two stroke families where technique coaching matters most, with serve at 0.976 and attack at 0.817.
 
 **Not far enough** to distinguish a block from a push, because that distinction is not in the body. It is in the racket and the ball.
 
 That boundary is the project's most useful output. It is measured rather than guessed, and it says exactly what the eventual coach can and cannot be trusted to say.
+
+---
+
+# License
+
+The code in this repository is licensed under the [MIT License](LICENSE).
+
+The training data (OpenTTGames, Extended OpenTT Games) is third-party and licensed separately under CC BY-NC-SA 4.0 (non-commercial, share-alike). Model weights trained on that data inherit its non-commercial restriction; the pipeline code itself does not.
