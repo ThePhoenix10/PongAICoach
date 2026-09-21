@@ -1,4 +1,5 @@
-# KINESIS Research Framework - PongAI Coach
+# KINESIS: Continuous Table Tennis Biomechanics
+Analysis Using Temporal Body Pose Research Framework - PongAI Coach 
 
 **The web application built on KINESIS**, a research framework that detects rallies and shots from body movement alone, built toward an AI coach that gives technique feedback.
 
