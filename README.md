@@ -1,4 +1,4 @@
-# PongAI Coach
+# KINESIS Research Framework - PongAI Coach
 
 **The web application built on KINESIS**, a research framework that detects rallies and shots from body movement alone, built toward an AI coach that gives technique feedback.
 
