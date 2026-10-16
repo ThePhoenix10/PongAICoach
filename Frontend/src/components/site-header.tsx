@@ -2,85 +2,170 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 import { AccountMenu } from "./account-menu";
 import { useSession } from "./session-provider";
 import { useUploadAction } from "@/lib/use-upload-action";
 
-const navBtn = "rounded-lg px-3 py-1.5 font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors";
+const navBtn =
+  "whitespace-nowrap rounded-lg px-3 py-1.5 font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors";
+const mobileNavBtn =
+  "block w-full text-left rounded-lg px-4 py-3 font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors";
 
 export function SiteHeader() {
   const { user, ready, signOut } = useSession();
   const uploadVideo = useUploadAction();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const navLinks = (mobile: boolean) => {
+    const cls = mobile ? mobileNavBtn : navBtn;
+    return (
+      <>
+        <button
+          type="button"
+          onClick={() => {
+            setMenuOpen(false);
+            uploadVideo();
+          }}
+          className={`${cls} cursor-pointer`}
+        >
+          Upload Video
+        </button>
+
+        {ready && user && (
+          <Link
+            href="/dashboard/"
+            className={cls}
+            onClick={() => setMenuOpen(false)}
+          >
+            My Videos
+          </Link>
+        )}
+
+        {ready && !user && (
+          <Link
+            href="/signin/?next=/dashboard/"
+            className={cls}
+            onClick={() => setMenuOpen(false)}
+          >
+            My Videos
+          </Link>
+        )}
+
+        <Link
+          href="/analysis/game_1/"
+          className={cls}
+          onClick={() => setMenuOpen(false)}
+        >
+          Demo Video
+        </Link>
+
+        <Link
+          href="/how-it-works/"
+          className={cls}
+          onClick={() => setMenuOpen(false)}
+        >
+          How it works
+        </Link>
+
+        <Link
+          href="/about/"
+          className={cls}
+          onClick={() => setMenuOpen(false)}
+        >
+          About Us
+        </Link>
+      </>
+    );
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white shadow-sm">
-      <a href="#main" className="focus:bg-brand focus:text-on-brand sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded focus:px-3 focus:py-2 focus:text-sm">
+      <a
+        href="#main"
+        className="focus:bg-brand focus:text-on-brand sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:rounded focus:px-3 focus:py-2 focus:text-sm"
+      >
         Skip to content
       </a>
 
-      {/* Header container — h-[70px] is ~10% taller than h-16 (64px) */}
-      <div className="flex w-full items-center gap-2 px-8" style={{ height: "70px" }}>
-
-        {/* Logo — 10% larger: 198x66 up from 180x60 */}
-        <Link href="/" className="flex items-center bg-white ml-4 shrink-0">
+      <div
+        className="relative flex w-full items-center px-4 sm:px-8"
+        style={{ height: "97px" }}
+      >
+        {/* Logo */}
+        <Link href="/" className="flex items-center bg-white shrink-0">
           <Image
             src="/PongAILogo.jpeg"
             alt="PongAI"
-            width={198}
-            height={66}
+            width={274}
+            height={91}
             className="w-auto object-contain"
             style={{ height: "70px" }}
             priority
           />
         </Link>
 
-        {/* Nav buttons — left aligned after logo */}
-        <nav className="flex items-center gap-1 ml-32" style={{ fontSize: "1.125rem" }}>
-          <button
-            type="button"
-            onClick={uploadVideo}
-            className={`${navBtn} cursor-pointer`}
-          >
-            Upload Video
-          </button>
-
-          {ready && user && (
-            <Link href="/dashboard/" className={navBtn}>
-              My Videos
-            </Link>
-          )}
-
-          {ready && !user && (
-            <Link href="/signin/?next=/dashboard/" className={navBtn}>
-              My Videos
-            </Link>
-          )}
-
-          <Link href="/analysis/game_1/" className={navBtn}>
-            Demo Video
-          </Link>
-
-          <Link href="/how-it-works/" className={navBtn}>
-            How it works
-          </Link>
-
-          <Link href="/about/" className={navBtn}>
-            About Us
-          </Link>
+        {/* Desktop nav — hidden below lg */}
+        <nav
+          className="absolute left-1/2 -translate-x-1/2 hidden lg:flex items-center gap-1"
+          style={{ fontSize: "1.125rem" }}
+        >
+          {navLinks(false)}
         </nav>
 
-        {/* Sign in — pinned to far right */}
-        <div className="ml-auto">
+        {/* Right side: sign-in + hamburger */}
+        <div className="ml-auto flex items-center gap-2">
           {ready &&
             (user ? (
               <AccountMenu user={user} onSignOut={signOut} />
             ) : (
-              <Link href="/signin/" className={navBtn}>
+              <Link href="/signin/" className={`${navBtn} hidden lg:inline-flex`}>
                 Sign in
               </Link>
             ))}
+
+          {/* Hamburger — visible below lg */}
+          <button
+            type="button"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMenuOpen((v) => !v)}
+            className="lg:hidden flex flex-col justify-center items-center w-10 h-10 rounded-lg hover:bg-slate-100 transition-colors"
+          >
+            <span
+              className={`block h-0.5 w-5 bg-slate-700 transition-all duration-200 ${
+                menuOpen ? "translate-y-[3px] rotate-45" : ""
+              }`}
+            />
+            <span
+              className={`block h-0.5 w-5 bg-slate-700 transition-all duration-200 mt-1 ${
+                menuOpen ? "opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`block h-0.5 w-5 bg-slate-700 transition-all duration-200 mt-1 ${
+                menuOpen ? "-translate-y-[7px] -rotate-45" : ""
+              }`}
+            />
+          </button>
         </div>
       </div>
+
+      {/* Mobile dropdown */}
+      {menuOpen && (
+        <nav className="lg:hidden border-t border-slate-200 bg-white px-4 py-2 shadow-lg">
+          {navLinks(true)}
+
+          {ready && !user && (
+            <Link
+              href="/signin/"
+              className={mobileNavBtn}
+              onClick={() => setMenuOpen(false)}
+            >
+              Sign in
+            </Link>
+          )}
+        </nav>
+      )}
     </header>
   );
 }

@@ -18,9 +18,9 @@ export function SiteFooter() {
               <Image
                 src="/PongAILogo.jpeg"
                 alt="PongAI"
-                width={150}
-                height={50}
-                className="h-12 w-auto object-contain"
+                width={192}
+                height={64}
+                className="h-16 w-auto object-contain"
               />
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-slate-500 max-w-xs">
