@@ -11,7 +11,10 @@ const inter = Inter({
   display: "swap",
 });
 
+const SITE_URL = "https://pongaicoach.live";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "PongAI",
     template: "%s · PongAI",
@@ -25,10 +28,22 @@ export const viewport: Viewport = {
   themeColor: "#f5f7fa",
 };
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "PongAI Coach",
+  url: SITE_URL,
+  sameAs: ["https://sportsforequity.live/"],
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`h-full antialiased ${inter.variable}`}>
       <body className="flex min-h-full flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         <SiteHeader />
         <main id="main" className="flex-1">
           {children}
