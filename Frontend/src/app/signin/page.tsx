@@ -1,4 +1,3 @@
-//Sign in
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { AuthForm } from "@/components/auth-form";
