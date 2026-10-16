@@ -51,3 +51,5 @@ next-env.d.ts
 
 # Real demo video is hosted on R2 — never commit the mp4
 public/demo/**/*.mp4
+CLAUDE.md
+AGENTS.md
