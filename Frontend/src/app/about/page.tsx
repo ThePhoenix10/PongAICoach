@@ -7,6 +7,7 @@ type Section = {
   h: string;
   p: string[];
   cta?: { href: string; label: string };
+  ctaImage?: string;
 };
 
 const SECTIONS: Section[] = [
@@ -14,18 +15,18 @@ const SECTIONS: Section[] = [
     icon: "01",
     h: "Our Mission",
     p: [
-      "PongAI Coach is designed to make table-tennis movement analysis more accessible, consistent, and useful. Using body-pose analysis and temporal machine learning, it turns ordinary match video into structured insights about shots, rallies, stroke families, and player movement.",
-      "Our goal is to support human coaches with repeatable movement data while keeping coaching judgment and player relationships at the center.",
+      "PongAI Coach is designed to make AI-powered table tennis coaching more accessible, supporting personalized skill development for neuro-wellness. Using body-pose analysis and temporal machine learning, it transforms ordinary match videos into structured insights about shots, rallies, stroke techniques, and player movement.",
     ],
   },
   {
     icon: "02",
     h: "From Research to SportsForEquity",
     p: [
-      "PongAI Coach grew out of KINESIS, an ongoing research framework for continuous table-tennis biomechanics analysis using temporal body pose.",
-      "The platform is now being integrated into SportsForEquity, where it supports a community-based table-tennis program serving people with Parkinson’s disease and older adults through neuro-wellness activities. Within SportsForEquity, PongAI Coach helps bring more consistent, individualized movement feedback to real coaching settings while also creating an opportunity to evaluate the technology across different players, venues, and recording conditions.",
+      "PongAI Coach is built on the award-winning KINESIS research, recognized with a Best Paper Finalist Award at IEEE BigData 2026. Using AI-powered body-pose analysis, PongAI Coach transforms table tennis videos into movement and technique insights, supporting SportsForEquity’s mission to make personalized coaching more accessible and explore future applications in Parkinson’s neuro-wellness.",
+      "",
     ],
     cta: { href: "https://sportsforequity.live", label: "Explore SportsForEquity" },
+    ctaImage: "/SportsForEquity-Logo.png",
   },
   {
     icon: "03",
@@ -55,16 +56,26 @@ export default function Page() {
                     </p>
                   ))}
                   {s.cta ? (
-                    <p className="mt-3 text-sm">
-                      <a
-                        href={s.cta.href}
-                        className="font-medium text-indigo-600 hover:text-indigo-700"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {s.cta.label} →
-                      </a>
-                    </p>
+                    <div className="mt-3 flex flex-col items-center text-center">
+                      {s.ctaImage ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={s.ctaImage}
+                          alt="SportsForEquity logo"
+                          className="mb-2 h-[105px] w-auto"
+                        />
+                      ) : null}
+                      <p className="text-sm">
+                        <a
+                          href={s.cta.href}
+                          className="font-medium text-indigo-600 hover:text-indigo-700"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {s.cta.label} →
+                        </a>
+                      </p>
+                    </div>
                   ) : null}
                 </div>
               </div>
