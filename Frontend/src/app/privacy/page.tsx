@@ -4,7 +4,7 @@ export const metadata: Metadata = { title: "Privacy policy" };
 
 const SECTIONS = [
   {
-    icon: "📦",
+    icon: "01",
     h: "What we store",
     p: [
       "Your account: first name, last name, email address, and a password that is hashed with argon2id. The password itself is never stored and cannot be recovered from the hash.",
@@ -12,7 +12,7 @@ const SECTIONS = [
     ],
   },
   {
-    icon: "🔒",
+    icon: "02",
     h: "Who can see your videos",
     p: [
       "Only you. Every upload is tied to the account that created it, and the API will not return another account's video, analysis or even confirm that it exists.",
@@ -20,7 +20,7 @@ const SECTIONS = [
     ],
   },
   {
-    icon: "🗓",
+    icon: "03",
     h: "How long we keep it",
     p: [
       "The original upload is deleted automatically seven days after it is submitted. Analysis results are kept until you delete them.",
@@ -28,7 +28,7 @@ const SECTIONS = [
     ],
   },
   {
-    icon: "🚫",
+    icon: "04",
     h: "What we do not do",
     p: [
       "We do not sell your data, show advertising, or share your videos with anyone.",
@@ -36,14 +36,14 @@ const SECTIONS = [
     ],
   },
   {
-    icon: "🍪",
+    icon: "05",
     h: "Cookies and tracking",
     p: [
       "No advertising or analytics cookies. Your sign-in token is held in your browser's local storage so you stay signed in between visits, and it is removed when you sign out.",
     ],
   },
   {
-    icon: "✋",
+    icon: "06",
     h: "Your choices",
     p: [
       "You can delete any video from the app at any time. To close your account and remove everything at once, email info@sportsforequity.live.",
@@ -68,7 +68,7 @@ export default function Page() {
           {SECTIONS.map((s) => (
             <div key={s.h} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <div className="flex items-start gap-4">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-xl gradient-brand text-lg shadow-sm">
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-xl gradient-brand text-sm font-bold text-white shadow-sm">
                   {s.icon}
                 </div>
                 <div>

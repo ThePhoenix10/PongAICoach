@@ -11,7 +11,7 @@ type Section = {
 
 const SECTIONS: Section[] = [
   {
-    icon: "🎯",
+    icon: "01",
     h: "Our Mission",
     p: [
       "PongAI Coach is designed to make table-tennis movement analysis more accessible, consistent, and useful. Using body-pose analysis and temporal machine learning, it turns ordinary match video into structured insights about shots, rallies, stroke families, and player movement.",
@@ -19,7 +19,7 @@ const SECTIONS: Section[] = [
     ],
   },
   {
-    icon: "🔬",
+    icon: "02",
     h: "From Research to SportsForEquity",
     p: [
       "PongAI Coach grew out of KINESIS, an ongoing research framework for continuous table-tennis biomechanics analysis using temporal body pose.",
@@ -28,7 +28,7 @@ const SECTIONS: Section[] = [
     cta: { href: "https://sportsforequity.live", label: "Explore SportsForEquity" },
   },
   {
-    icon: "⚠️",
+    icon: "03",
     h: "Important Note",
     p: [
       "PongAI is a coaching and movement-analysis system. It is not intended to diagnose, monitor, treat, or prevent any medical condition.",
@@ -44,7 +44,7 @@ export default function Page() {
           {SECTIONS.map((s) => (
             <div key={s.h} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <div className="flex items-start gap-4">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-xl gradient-brand text-lg shadow-sm">
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-xl gradient-brand text-sm font-bold text-white shadow-sm">
                   {s.icon}
                 </div>
                 <div>

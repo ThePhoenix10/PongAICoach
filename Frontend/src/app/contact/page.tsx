@@ -4,25 +4,25 @@ export const metadata: Metadata = { title: "Contact us" };
 
 const REASONS = [
   {
-    icon: "🔑",
+    icon: "01",
     h: "A password you cannot remember",
     p: "There is no self-service reset yet. Email us from the address on the account and we will reset it.",
     to: "info@sportsforequity.live",
   },
   {
-    icon: "⚠️",
+    icon: "02",
     h: "Something went wrong with an analysis",
     p: "Send the name of the video and roughly when you uploaded it. The job record keeps the reason it failed, which usually explains it straight away.",
     to: "info@sportsforequity.live",
   },
   {
-    icon: "🗑",
+    icon: "03",
     h: "Deleting your account",
     p: "Ask and we will remove the account, every video on it and every analysis. It cannot be undone.",
     to: "info@sportsforequity.live",
   },
   {
-    icon: "🔬",
+    icon: "04",
     h: "Research, data or anything else",
     p: "The model, the measurements and where it falls short — happy to talk about any of it.",
     to: "info@sportsforequity.live",
@@ -54,7 +54,7 @@ export default function Page() {
               className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md hover:border-orange-200 transition-all duration-200"
             >
               <div className="flex items-start gap-4">
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-xl gradient-brand text-lg shadow-sm">
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-xl gradient-brand text-sm font-bold text-white shadow-sm">
                   {r.icon}
                 </div>
                 <div className="min-w-0">
