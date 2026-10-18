@@ -18,22 +18,22 @@ export default async function HomePage() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
               {
-                icon: "⏱",
+                icon: "01",
                 title: "Shot timing",
                 desc: "Every contact detected to within a few hundredths of a second.",
               },
               {
-                icon: "🎯",
+                icon: "02",
                 title: "Player attribution",
                 desc: "99.4% accuracy identifying which player hit each shot.",
               },
               {
-                icon: "📐",
+                icon: "03",
                 title: "13 measurements",
                 desc: "Wrist speed, stance width, swing arc and more — from body alone.",
               },
               {
-                icon: "🏓",
+                icon: "04",
                 title: "Stroke classification",
                 desc: "Serve, attack, control or defence — with calibrated confidence.",
               },
@@ -42,7 +42,7 @@ export default async function HomePage() {
                 key={f.title}
                 className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
               >
-                <div className="mb-3 flex size-10 items-center justify-center rounded-xl gradient-brand text-lg shadow-sm">
+                <div className="mb-3 flex size-10 items-center justify-center rounded-xl gradient-brand text-sm font-bold text-white shadow-sm">
                   {f.icon}
                 </div>
                 <h3 className="font-semibold text-slate-900">{f.title}</h3>

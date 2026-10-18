@@ -4,8 +4,8 @@ export default function NotFound() {
   return (
     <div className="flex min-h-[60vh] items-center justify-center px-4">
       <div className="text-center max-w-md">
-        <div className="mx-auto mb-6 flex size-20 items-center justify-center rounded-2xl gradient-brand shadow-lg glow-brand text-4xl">
-          🏓
+        <div className="mx-auto mb-6 flex size-20 items-center justify-center rounded-2xl gradient-brand shadow-lg glow-brand text-3xl font-bold text-white">
+          404
         </div>
         <h1 className="text-2xl font-bold text-slate-900">Page not found</h1>
         <p className="mt-3 text-slate-500 leading-relaxed">
