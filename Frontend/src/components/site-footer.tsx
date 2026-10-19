@@ -57,7 +57,7 @@ export function SiteFooter() {
                 <Link href="/how-it-works/" className="text-slate-500 hover:text-orange-600 transition-colors">How it works</Link>
               </li>
               <li>
-                <Link href="/about/" className="text-slate-500 hover:text-orange-600 transition-colors">About Us</Link>
+                <Link href="/about/" className="text-slate-500 hover:text-orange-600 transition-colors">About</Link>
               </li>
             </ul>
           </nav>
