@@ -34,6 +34,9 @@ export function SiteFooter() {
             </h2>
             <ul className="mt-4 space-y-3 text-sm">
               <li>
+                <Link href="/" className="text-slate-500 hover:text-orange-600 transition-colors">Home</Link>
+              </li>
+              <li>
                 <button type="button" onClick={uploadVideo} className="text-slate-500 hover:text-orange-600 transition-colors cursor-pointer">
                   Upload Video
                 </button>
