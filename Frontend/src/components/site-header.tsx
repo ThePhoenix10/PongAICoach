@@ -81,7 +81,7 @@ export function SiteHeader() {
           className={cls}
           onClick={() => setMenuOpen(false)}
         >
-          About Us
+          About
         </Link>
       </>
     );

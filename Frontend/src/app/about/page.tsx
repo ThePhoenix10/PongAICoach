@@ -13,7 +13,7 @@ type Section = {
 const SECTIONS: Section[] = [
   {
     icon: "01",
-    h: "Our Mission",
+    h: "Mission",
     p: [
       "PongAI Coach is designed to make AI-powered table tennis coaching more accessible, supporting personalized skill development for neuro-wellness. Using body-pose analysis and temporal machine learning, it transforms ordinary match videos into structured insights about shots, rallies, stroke techniques, and player movement.",
     ],
