@@ -8,7 +8,7 @@ import { useSession } from "./session-provider";
 import { useUploadAction } from "@/lib/use-upload-action";
 
 const navBtn =
-  "whitespace-nowrap rounded-lg px-3 py-1.5 font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors";
+  "whitespace-nowrap rounded-lg px-2 py-1.5 font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors";
 const mobileNavBtn =
   "block w-full text-left rounded-lg px-4 py-3 font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors";
 
@@ -21,6 +21,14 @@ export function SiteHeader() {
     const cls = mobile ? mobileNavBtn : navBtn;
     return (
       <>
+        <Link
+          href="/"
+          className={cls}
+          onClick={() => setMenuOpen(false)}
+        >
+          Home
+        </Link>
+
         <button
           type="button"
           onClick={() => {
@@ -90,25 +98,31 @@ export function SiteHeader() {
 
       <div
         className="relative flex w-full items-center px-4 sm:px-8"
-        style={{ height: "97px" }}
+        style={{ height: "74px" }}
       >
-        {/* Logo */}
-        <Link href="/" className="flex items-center bg-white shrink-0">
+        {/* Logo — absolutely positioned & sized independently so it doesn't
+            drive the nav row's own layout; the bar is kept just tall enough to
+            fully contain it so nothing pokes out past the white background */}
+        <Link
+          href="/"
+          className="absolute left-0 sm:left-2 top-1/2 flex items-center"
+          style={{ transform: "translateY(-53%)" }}
+        >
           <Image
-            src="/PongAILogo.jpeg"
+            src="/PongAILogo.png"
             alt="PongAI"
             width={274}
             height={91}
             className="w-auto object-contain"
-            style={{ height: "70px" }}
+            style={{ height: "113px" }}
             priority
           />
         </Link>
 
         {/* Desktop nav — hidden below lg */}
         <nav
-          className="absolute left-1/2 -translate-x-1/2 hidden lg:flex items-center gap-1"
-          style={{ fontSize: "1.125rem" }}
+          className="absolute left-1/2 hidden lg:flex items-center gap-0"
+          style={{ fontSize: "1.125rem", transform: "translateX(calc(-50% + 75px))" }}
         >
           {navLinks(false)}
         </nav>

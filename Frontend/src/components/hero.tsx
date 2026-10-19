@@ -65,8 +65,8 @@ export function Hero() {
       </div>
 
       {/* Desktop: full-viewport-height hero panel that sits above the fixed video */}
-      <div className="relative hidden lg:flex items-end px-10 xl:px-16" style={{ height: "85vh", paddingBottom: "5rem" }}>
-        <div className="max-w-xl">
+      <div className="relative hidden lg:flex items-end px-10 xl:px-16" style={{ minHeight: "85vh", paddingBottom: "5rem" }}>
+        <div className="max-w-xl" style={{ marginTop: "5vh" }}>
           <div
             className="hero-rise mb-5 inline-flex items-center gap-2 rounded-full border border-orange-400/40 bg-orange-500/20 px-4 py-1.5 text-xs font-semibold text-orange-200 backdrop-blur-sm"
             style={{ animationDelay: "60ms" }}
@@ -76,7 +76,7 @@ export function Hero() {
           </div>
 
           <h1
-            className="hero-rise text-[length:var(--text-display)] font-bold leading-[1.05] tracking-tight text-white"
+            className="hero-rise text-[length:var(--text-2xl)] font-bold leading-[1.05] tracking-tight text-white"
             style={{ animationDelay: "120ms" }}
           >
             Every shot.<br />
@@ -84,7 +84,7 @@ export function Hero() {
           </h1>
 
           <p
-            className="hero-rise mt-5 text-base text-white/75 max-w-md leading-relaxed"
+            className="hero-rise mt-5 text-sm text-white/75 max-w-md leading-relaxed"
             style={{ animationDelay: "200ms" }}
           >
             PongAI reads your match from body movement alone — no ball tracking,
@@ -97,14 +97,14 @@ export function Hero() {
           >
             <Link
               href="/analysis/game_1/"
-              className="rounded-xl gradient-brand px-6 py-3 text-sm font-bold text-white shadow-lg hover:opacity-90 transition-opacity glow-brand"
+              className="rounded-xl gradient-brand px-6 py-3 text-xs font-bold text-white shadow-lg hover:opacity-90 transition-opacity glow-brand"
             >
               Watch Demo
             </Link>
             <button
               type="button"
               onClick={uploadVideo}
-              className="cursor-pointer rounded-xl border border-white/25 bg-white/10 px-6 py-3 text-sm font-semibold text-white hover:bg-white/20 transition-all backdrop-blur-sm"
+              className="cursor-pointer rounded-xl border border-white/25 bg-white/10 px-6 py-3 text-xs font-semibold text-white hover:bg-white/20 transition-all backdrop-blur-sm"
             >
               {secondary}
             </button>
@@ -120,7 +120,7 @@ export function Hero() {
               { value: "13", label: "Metrics per shot" },
             ].map((s) => (
               <div key={s.label}>
-                <div className="text-2xl font-bold text-white tabular-nums">{s.value}</div>
+                <div className="text-xl font-bold text-white tabular-nums">{s.value}</div>
                 <div className="mt-0.5 text-xs text-white/80 uppercase tracking-wide">{s.label}</div>
               </div>
             ))}
