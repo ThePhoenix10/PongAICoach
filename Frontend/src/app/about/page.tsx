@@ -22,7 +22,7 @@ const SECTIONS: Section[] = [
     icon: "02",
     h: "From Research to SportsForEquity",
     p: [
-      "PongAI Coach is built on the award-winning KINESIS research, recognized with a Best Paper Finalist Award at IEEE. Using AI-powered body-pose analysis, PongAI Coach transforms table tennis videos into movement and technique insights, supporting SportsForEquity’s mission to make personalized coaching more accessible and explore future applications in Parkinson’s neuro-wellness.",
+      "PongAI Coach is built on the award-recognized KINESIS research, recognized by IEEE. Using AI-powered body-pose analysis, PongAI Coach transforms table tennis videos into movement and technique insights, supporting SportsForEquity’s mission to make personalized coaching more accessible and explore future applications in Parkinson’s neuro-wellness.",
       "",
     ],
     cta: { href: "https://sportsforequity.live", label: "Explore SportsForEquity" },
