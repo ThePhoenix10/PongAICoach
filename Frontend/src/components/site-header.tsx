@@ -106,23 +106,26 @@ export function SiteHeader() {
         <Link
           href="/"
           className="absolute left-0 sm:left-2 top-1/2 flex items-center"
-          style={{ transform: "translateY(-53%)" }}
+          style={{ transform: "translateY(-57%)" }}
         >
           <Image
             src="/PongAILogo.png"
             alt="PongAI"
-            width={274}
-            height={91}
+            width={1758}
+            height={593}
             className="w-auto object-contain"
-            style={{ height: "113px" }}
+            style={{ height: "88px" }}
             priority
           />
         </Link>
 
         {/* Desktop nav — hidden below lg */}
         <nav
-          className="absolute left-1/2 hidden lg:flex items-center gap-0"
-          style={{ fontSize: "1.125rem", transform: "translateX(calc(-50% + 75px))" }}
+          className="absolute left-1/2 top-1/2 hidden lg:flex items-center gap-0"
+          style={{
+            fontSize: "1.125rem",
+            transform: "translate(calc(-50% + 75px), -50%)",
+          }}
         >
           {navLinks(false)}
         </nav>
