@@ -53,3 +53,4 @@ next-env.d.ts
 public/demo/**/*.mp4
 CLAUDE.md
 AGENTS.md
+README.md
